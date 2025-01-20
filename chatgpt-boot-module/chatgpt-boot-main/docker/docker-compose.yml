@@ -1,0 +1,15 @@
+version: '3'
+services:
+  jiushi-chat-gpt4-dockers:
+    container_name: jiushi-chat-gpt4-root-1
+    image: '192.168.1.20/jiushi/jiushi-chat-gpt4-root:1.0.0'
+    deploy:
+      resources:
+        limits:
+          memory: 1024m
+        reservations:
+          memory: 1024m
+    ports:
+      - "9001:9001"
+    volumes:
+      - /data/jiushiChat/logs:/logs
