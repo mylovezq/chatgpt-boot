@@ -9,6 +9,7 @@ services:
           memory: 1024m
         reservations:
           memory: 1024m
+    restart: always
     ports:
       - "9001:9001"
     volumes:
