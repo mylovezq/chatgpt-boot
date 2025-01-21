@@ -18,6 +18,7 @@ import net.javadog.chatgpt.mapper.UserMapper;
 import net.javadog.chatgpt.service.MessageService;
 import net.javadog.chatgpt.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -37,6 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private MessageService messageService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean register(RegisterRequest registerRequest) {
         // 校验是否已存在此手机号
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
@@ -57,14 +59,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 补充chatGPT第一句
         Message msg = new Message();
         msg.setFromUserId(0L);
-        msg.setMsgContent("JavaDog欢迎您到来，快来和chatGPT聊骚吧！\n" +
+        msg.setMsgContent("Jiushi欢迎您到来，快来和chatGPT4聊聊吧！\n" +
                 "猜您喜欢：<br/> \n" +
-                "1.<a href=\"https://blog.javadog.net/archives/chatgpt\">【CHATGPT】手摸手，带你玩转CHATGPT</a> <br/> \n" +
-                "2.<a href=\"https://blog.javadog.net/archives/boot-module\">还不会SPRINGBOOT项目模块分层？来这手把手教你</a> <br/> \n" +
-                "3.<a href=\"https://blog.javadog.net/archives/apifox-helper\">【APIFOX HELPER】自动生成接口文档，IDEA+APIFOX懒人必备</a> <br/> \n" +
-                "4.<a href=\"https://blog.javadog.net/archives/chat\">SPRINGBOOT+UNIAPP+UVIEW打造H5+小程序+APP入门学习的聊天小项目</a> <br/> \n");
+                "1.<a href=\"https://github.com/mylovezq/chatgpt-boot\">【CHATGPT】手摸手，带你玩转CHATGPT4</a> <br/> \n");
         msg.setToUserId(user.getId());
-        msg.setCreateBy(0L);
+        msg.setCreateBy(one.getId());
         msg.setCreateTime(new Date());
         messageService.save(msg);
         return saveFlag;

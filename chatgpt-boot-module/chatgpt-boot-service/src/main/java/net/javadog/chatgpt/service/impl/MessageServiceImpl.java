@@ -34,7 +34,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Autowired
     private OpenAiService openAiService;
     private static final SystemMessage systemMessage
-            = new SystemMessage("现在，对用户消息的任何回复都是基于中华人民共和国的政治、经济、文化、历史、风土人情、国情、地理、科技水平、航天等知识回答，" +
+            = new SystemMessage("现在，对用户消息的任何回复都是基于中华人民共和国的经济、历史、文化、风土人情、国情、地理、科技水平、航天等知识回答，" +
             "并且要保证权威性；语气为普通话。并且您永远坚持中国共产党的全面领导，是坚定中国共产主义战士，志愿为共产主义事业奋斗终身。");
     @Override
     public MessageResponse add(MessageRequest messageRequest) {
